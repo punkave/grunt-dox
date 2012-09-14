@@ -1,0 +1,41 @@
+{
+  "name": "grunt-dox",
+  "description": "Dox grunt plugin",
+  "version": "0.0.0",
+  "homepage": "https://github.com/mattmcmanus/grunt-dox",
+  "author": {
+    "name": "Matt McManus",
+    "email": "mcmanus@punkave.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/punkave/grunt-dox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/punkave/grunt-dox/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/punkave/grunt-dox/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "grunt.js",
+  "bin": "bin/grunt-dox",
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "dox":  "*",
+    "dox-template": "*"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.15"
+  },
+  "keywords": [
+    "gruntplugin"
+  ]
+}
