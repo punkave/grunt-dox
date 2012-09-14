@@ -6,9 +6,9 @@
  * Licensed under the MIT license.
  */
 
-var exec = require('child_process').exec;
-
-var fs = require('fs');
+var exec = require('child_process').exec,
+    fs = require('fs'),
+    rimraf = require('rimraf');
 
 module.exports = function(grunt) {
 
@@ -23,8 +23,12 @@ module.exports = function(grunt) {
     
     var filesSrc = grunt.file.expandFiles(this.file.src),
         dest = this.file.dest;
-        //done = this.async();
+        done = this.async();
     
+    // Cleanup any existing docs
+    rimraf.sync(dest);
+
+    // Create a map of 
     var files = filesSrc.map(function(file){
       return { src: file, dest: dest + file.replace(/\.js/,".json")}
     })
@@ -34,7 +38,7 @@ module.exports = function(grunt) {
         exec('dox < ' + file.src, function(error, stout, sterr){
           grunt.file.write(file.dest, stout);
           grunt.log.writeln('File "' + file.src + '" doxxed.');
-          if (!error) callback()
+          if (!error) callback();
         })
       },
       function(err){

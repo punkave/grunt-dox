@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "dox":  "*",
-    "dox-template": "*"
+    "dox-template": "*",
+    "rimraf": "2.x"
   },
   "devDependencies": {
     "grunt": "~0.3.15"

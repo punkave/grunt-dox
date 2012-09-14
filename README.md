@@ -15,14 +15,22 @@ grunt.loadNpmTasks('grunt-dox');
 [getting_started]: https://github.com/cowboy/grunt/blob/master/docs/getting_started.md
 
 ## Documentation
-_(Coming soon)_
+Inside of your grunt file, add:
+```javascript
+dox: {
+  files: {
+    src: ['dir/*', '*.js'],
+    dest: 'docs/'
+  }
+},
+```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][grunt].
 
 ## Release History
-_(Nothing yet)_
+* **0.1.0**: Initial release
 
 ## License
-Copyright (c) 2012 Matt McManus  
+Copyright (c) 2012 P'unk Ave
 Licensed under the MIT license.
