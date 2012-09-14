@@ -21,28 +21,18 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('dox', 'Generate dox output ', function() {
     
-    var filesSrc = grunt.file.expandFiles(this.file.src),
+    var files = grunt.file.expandFiles(this.file.src),
         dest = this.file.dest;
         done = this.async();
     
     // Cleanup any existing docs
     rimraf.sync(dest);
 
-    // Create a map of 
-    var files = filesSrc.map(function(file){
-      return { src: file, dest: dest + file.replace(/\.js/,".json")}
+    exec('cat ' + files.join(' ') + ' | dox | dox-template', function(error, stout, sterr){
+      grunt.file.write(dest + 'index.html', stout);
+      grunt.log.writeln('Files "' + files.join(' ') + '" doxxed.');
+      if (!error) done();
     })
+  });
 
-    grunt.utils.async.forEach( files,
-      function dox(file, callback){
-        exec('dox < ' + file.src, function(error, stout, sterr){
-          grunt.file.write(file.dest, stout);
-          grunt.log.writeln('File "' + file.src + '" doxxed.');
-          if (!error) callback();
-        })
-      },
-      function(err){
-        done();
-      })
-  });  
 };
