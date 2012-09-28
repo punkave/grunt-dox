@@ -28,8 +28,8 @@ module.exports = function(grunt) {
     // Cleanup any existing docs
     rimraf.sync(dest);
 
-    exec('cat ' + files.join(' ') + ' | dox | dox-template', function(error, stout, sterr){
-      grunt.file.write(dest + 'index.html', stout);
+    exec('cat ' + files.join(' ') + ' | dox-foundation', function(error, stout, sterr){
+      grunt.file.write(dest + '/' + 'api.html', stout);
       grunt.log.writeln('Files "' + files.join(' ') + '" doxxed.');
       if (!error) done();
     })
