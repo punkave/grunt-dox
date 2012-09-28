@@ -1,6 +1,6 @@
 # grunt-dox
 
-Dox grunt plugin
+Dox grunt plugin to automatically generate documentation for you project. Currently generates HTML output using [dox-foundaiton](https://github.com/punkave/dox-foundation)
 
 ## Getting Started
 Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-dox`
@@ -20,7 +20,7 @@ Inside of your grunt file, add:
 dox: {
   files: {
     src: ['dir/*', '*.js'],
-    dest: 'docs/'
+    dest: 'docs'
   }
 },
 ```
@@ -30,6 +30,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 * **0.1.0**: Initial release
+* **0.2.0**: Pass multiple files at once. Use dox-foundation for html output
 
 ## License
 Copyright (c) 2012 P'unk Ave
