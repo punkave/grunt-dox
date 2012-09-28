@@ -25,6 +25,10 @@ dox: {
 },
 ```
 
+This will run all of your files through dox and dox-foundation and created a file `docs/api.html`
+
+**Note:** This will completely deleter and recreate the docs folder
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][grunt].
 
