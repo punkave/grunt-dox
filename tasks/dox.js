@@ -31,7 +31,7 @@ module.exports = function(grunt) {
     exec('cat ' + files.join(' ') + ' | dox-foundation', function(error, stout, sterr){
       grunt.file.write(dest + '/' + 'api.html', stout);
       grunt.log.writeln('Files "' + files.join(' ') + '" doxxed.');
-      if (!error) done();
+      done(error);
     })
   });
 
