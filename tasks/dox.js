@@ -8,6 +8,7 @@
 
 var exec = require('child_process').exec,
     fs = require('fs'),
+    path = require('path'),
     rimraf = require('rimraf');
 
 module.exports = function(grunt) {
@@ -23,15 +24,27 @@ module.exports = function(grunt) {
     
     var files = grunt.file.expandFiles(this.file.src),
         dest = this.file.dest;
-        done = this.async();
+        done = this.async(),
+        doxCmd = '',doxPath = path.resolve(__dirname,'../') + path.sep;
     
     // Cleanup any existing docs
     rimraf.sync(dest);
+    
+    if(process.platform == 'win32'){
 
-    exec('cat ' + files.join(' ') + ' | dox-foundation', function(error, stout, sterr){
+      doxCmd = 'type ' + path.normalize(files) + ' | ' + doxPath + 'node_modules' + path.sep + '.bin' + path.sep + 'dox-foundation';
+    } else {
+
+      doxCmd = 'cat ' + files.join(' ') + ' | ' + doxPath + 'node_modules' + path.sep + '.bin' + path.sep + 'dox-foundation';
+    }
+    
+
+    exec(doxCmd, {maxBuffer: 5000*1024}, function(error, stout, sterr){
       grunt.file.write(dest + '/' + 'api.html', stout);
-      grunt.log.writeln('Files "' + files.join(' ') + '" doxxed.');
-      done(error);
+      grunt.log.writeln('Files \n"' + files.join('\n') + '" doxxed.');
+      if (!error) done();
+      if (error) grunt.log.error("WARN:  "+ error);
+      
     })
   });
 
