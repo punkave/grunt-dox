@@ -29,23 +29,21 @@ module.exports = function(grunt) {
     
     // Cleanup any existing docs
     rimraf.sync(dest);
-
-    // A nasty way, but it solves it, currently, we use cat here instead of type
-    // I can't seeem to get type to pass the string on to dox-foundation atm
-    // We currently assume that windows users have unix-shell commands baked in with cmd (for example, mSysGit installed)
+    
     if(process.platform == 'win32'){
 
-      doxCmd = 'cat ' + files.join(' ') + ' |' + doxPath + 'node_modules' + path.sep + '.bin' + path.sep + 'dox-foundation.cmd';
+      doxCmd = 'type ' + path.normalize(files) + ' | ' + doxPath + 'node_modules' + path.sep + '.bin' + path.sep + 'dox-foundation';
     } else {
 
-      doxCmd = 'cat ' + files.join(' ') + ' |' + doxPath + 'node_modules' + path.sep + '.bin' + path.sep + 'dox-foundation';
+      doxCmd = 'cat ' + files.join(' ') + ' | ' + doxPath + 'node_modules' + path.sep + '.bin' + path.sep + 'dox-foundation';
     }
+    
 
-    exec(doxCmd, function(error, stout, sterr){
+    exec(doxCmd, {maxBuffer: 5000*1024}, function(error, stout, sterr){
       grunt.file.write(dest + '/' + 'api.html', stout);
       grunt.log.writeln('Files \n"' + files.join('\n') + '" doxxed.');
       if (!error) done();
-      if (error) grunt.log.writeln("ERROR "+ error);
+      if (error) grunt.log.error("WARN:  "+ error);
       
     })
   });
