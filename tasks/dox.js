@@ -22,8 +22,8 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('dox', 'Generate dox output ', function() {
     
-    var files = grunt.file.expandFiles(this.file.src),
-        dest = this.file.dest;
+    var files = this.filesSrc,
+        dest = this.data.dest;
         done = this.async(),
         doxCmd = '',doxPath = path.resolve(__dirname,'../') + path.sep;
     
