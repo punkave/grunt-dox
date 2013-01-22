@@ -44,10 +44,6 @@ module.exports = function(grunt) {
 
     exec(doxCmd, {maxBuffer: 5000*1024}, function(error, stout, sterr){
       grunt.file.write(dest + '/' + 'api.html', stout);
-<<<<<<< HEAD
-      grunt.log.ok('Files doxxed.');
-      if (!error) done();
-=======
 
       if (!error){
 
@@ -59,7 +55,7 @@ module.exports = function(grunt) {
         grunt.log.ok(String(files.length).cyan + ' files doxxed to ' + 'api.html'.yellow);
         done();
       }
->>>>>>> 223b45b8200036efe599f6a3ee3193fb323c3fc5
+
       if (error) grunt.log.error("WARN:  "+ error);
 
     })
