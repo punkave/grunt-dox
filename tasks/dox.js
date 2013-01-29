@@ -59,6 +59,13 @@ module.exports = function(grunt) {
     // Cleanup any existing docs
     rimraf.sync(dest);
 
+    // Dox requires the folder to be present before trying to save files to dest
+    fs.exists(dest, function (exists) {
+      if(!exists){
+        fs.mkdirSync(dest);
+      }
+    });
+
     exec(formatter + ' --source "' + dir + '" --target ' + dest, {maxBuffer: 5000*1024}, function(error, stout, sterr){
       if (error) grunt.log.error("WARN:  "+ error);
       if (!error) {
