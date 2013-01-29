@@ -17,7 +17,7 @@ function parentDir(files) {
 
   files.forEach(function(file){
     // Grab the first folder listed
-    var dir = path.dirname(file).split(path.sep)[0];
+    var dir = path.resolve(path.dirname(file).split(path.sep)[0]);
     // Add it to the list if it's not there already
     if (dirs.indexOf(dir) == -1) {
       dirs.push(dir);
@@ -49,6 +49,7 @@ module.exports = function(grunt) {
         dest = this.file.dest;
         done = this.async(),
         doxPath = path.resolve(__dirname,'../');
+    
     // Absolute path to the formatter
     var formatter = [doxPath, 'node_modules', '.bin', 'dox-foundation'].join(path.sep);
     
@@ -62,7 +63,7 @@ module.exports = function(grunt) {
       if (!error) {
         grunt.log.writeln('Directory "' + dir + '" doxxed.');
         done();
-      };
+      }
     });
   });
 
