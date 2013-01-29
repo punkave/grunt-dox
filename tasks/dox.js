@@ -12,6 +12,29 @@ var exec = require('child_process').exec,
     rimraf = require('rimraf'),
     colors = require('colors');
 
+// Figure out the parent dir to pass to dox-foundation
+function parentDir(files) {
+  var dirs = [];
+
+  files.forEach(function(file){
+    // Grab the first folder listed
+    var dir = path.dirname(file).split(path.sep)[0];
+    // Add it to the list if it's not there already
+    if (dirs.indexOf(dir) == -1) {
+      dirs.push(dir);
+    }
+  });
+  // If there is more than one base dir, try again.
+  // TODO: This is a crappy way to do this and will
+  // probably break in some situations. Works fine if
+  // you only are parsing a lib folder
+  if (dirs.length > 1) {
+    dirs = parentDir(dirs);
+  }
+
+  return dirs;
+}
+
 module.exports = function(grunt) {
 
   // Please see the grunt documentation for more information regarding task and
@@ -26,39 +49,30 @@ module.exports = function(grunt) {
     var files = this.filesSrc,
         dest = this.data.dest;
         done = this.async(),
-        doxCmd = '',
-        doxPath = path.resolve(__dirname,'../') + path.sep,
-        _opts = this.options();
+        doxPath = path.resolve(__dirname,'../'),
+        _opts = this.options(),
+        dir = parentDir(files);
+
+    // Absolute path to the formatter
+    var formatter = [doxPath, 'node_modules', '.bin', 'dox-foundation'].join(path.sep);
 
     // Cleanup any existing docs
     rimraf.sync(dest);
 
-    if(process.platform == 'win32'){
-
-      doxCmd = 'type ' + path.normalize(files) + ' | ' + doxPath + 'node_modules' + path.sep + '.bin' + path.sep + 'dox-foundation';
-    } else {
-
-      doxCmd = 'cat ' + files.join(' ') + ' | ' + doxPath + 'node_modules' + path.sep + '.bin' + path.sep + 'dox-foundation';
-    }
-
-
-    exec(doxCmd, {maxBuffer: 5000*1024}, function(error, stout, sterr){
-      grunt.file.write(dest + '/' + 'api.html', stout);
-
-      if (!error){
-
+    exec(formatter + ' --source "' + dir + '" --target ' + dest, {maxBuffer: 5000*1024}, function(error, stout, sterr){
+      if (error) grunt.log.error("WARN:  "+ error);
+      if (!error) {
         if(_opts.verbose){
 
-          grunt.log.writeln('Files \n' + files.join('\n').yellow + ' doxxed.');
+          grunt.log.writeln('Directory "' + dir + '" doxxed.');
         }
 
         grunt.log.ok(String(files.length).cyan + ' files doxxed to ' + 'api.html'.yellow);
+        
+        
         done();
       }
-
-      if (error) grunt.log.error("WARN:  "+ error);
-
-    })
+    });
   });
 
 };

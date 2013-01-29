@@ -1,7 +1,7 @@
 {
   "name": "grunt-dox",
   "description": "Dox grunt plugin",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "homepage": "https://github.com/mattmcmanus/grunt-dox",
   "author": {
     "name": "Matt McManus",
@@ -30,9 +30,9 @@
   },
   "dependencies": {
     "dox": "*",
-    "dox-foundation": "0.2.x",
-    "rimraf": "2.x",
-    "colors": "~0.6.0-1"
+    "colors": "~0.6.0-1",
+    "dox-foundation": "0.4.x",
+    "rimraf": "2.x"
   },
   "devDependencies": {
     "grunt": "~0.3.15"
