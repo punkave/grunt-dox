@@ -11,6 +11,25 @@ var exec = require('child_process').exec,
     path = require('path'),
     rimraf = require('rimraf');
 
+function parentDir(files) {
+  var dirs = [];
+
+  files.forEach(function(file){
+    // Grab the first folder listed
+    var dir = path.dirname(file).split(path.sep)[0];
+
+    if (dirs.indexOf(dir) == -1) {
+      dirs.push(dir);
+    }
+  });
+
+  if (dirs.length > 1) {
+    dirs = parentDir(dirs);
+  }
+
+  return dirs;
+}
+
 module.exports = function(grunt) {
 
   // Please see the grunt documentation for more information regarding task and
@@ -25,27 +44,22 @@ module.exports = function(grunt) {
     var files = grunt.file.expandFiles(this.file.src),
         dest = this.file.dest;
         done = this.async(),
-        doxCmd = '',doxPath = path.resolve(__dirname,'../') + path.sep;
+        doxPath = path.resolve(__dirname,'../') + path.sep;
     
+    var formatter = [doxPath, 'node_modules', '.bin', 'dox-foundation'].join(path.sep);
+    
+    var dir = parentDir(files);
+
     // Cleanup any existing docs
     rimraf.sync(dest);
-    
-    if(process.platform == 'win32'){
 
-      doxCmd = 'type ' + path.normalize(files) + ' | ' + doxPath + 'node_modules' + path.sep + '.bin' + path.sep + 'dox-foundation';
-    } else {
-
-      doxCmd = 'cat ' + files.join(' ') + ' | ' + doxPath + 'node_modules' + path.sep + '.bin' + path.sep + 'dox-foundation';
-    }
-    
-
-    exec(doxCmd, {maxBuffer: 5000*1024}, function(error, stout, sterr){
-      grunt.file.write(dest + '/' + 'api.html', stout);
-      grunt.log.writeln('Files \n"' + files.join('\n') + '" doxxed.');
-      if (!error) done();
+    exec(formatter + ' --source "' + dir + '" --target ' + dest, {maxBuffer: 5000*1024}, function(error, stout, sterr){
       if (error) grunt.log.error("WARN:  "+ error);
-      
-    })
+      if (!error) {
+        grunt.log.writeln('Directory "' + dir + '" doxxed.');
+        done();
+      };
+    });
   });
 
 };
