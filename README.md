@@ -19,15 +19,15 @@ Inside of your grunt file, add:
 ```javascript
 dox: {
   files: {
-    src: ['lib/**/*.js'],
+    src: ['dir/*', '*.js'],
     dest: 'docs'
   }
 },
 ```
 
-This will run all of your files through dox and dox-foundation and  put the output in `docs`
+This will run all of your files through dox and dox-foundation and created a file `docs/api.html`
 
-**Note:** This will completely delete and recreate the docs folder
+**Note:** This will completely deleter and recreate the docs folder
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][grunt].
@@ -35,7 +35,6 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 ## Release History
 * **0.1.0**: Initial release
 * **0.2.0**: Pass multiple files at once. Use dox-foundation for html output
-* **0.3.0**: Now relies solely on folder parsing done by dox-foundation v0.4
 
 ## License
 Copyright (c) 2012 P'unk Ave
