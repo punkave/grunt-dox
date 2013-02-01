@@ -11,28 +11,6 @@ var exec = require('child_process').exec,
     path = require('path'),
     rimraf = require('rimraf');
 
-// Figure out the parent dir to pass to dox-foundation
-function parentDir(files) {
-  var dirs = [];
-
-  files.forEach(function(file){
-    // Grab the first folder listed
-    var dir = path.resolve(path.dirname(file).split(path.sep)[0]);
-    // Add it to the list if it's not there already
-    if (dirs.indexOf(dir) == -1) {
-      dirs.push(dir);
-    }
-  });
-  // If there is more than one base dir, try again.
-  // TODO: This is a crappy way to do this and will
-  // probably break in some situations. Works fine if
-  // you only are parsing a lib folder
-  if (dirs.length > 1) {
-    dirs = parentDir(dirs);
-  }
-
-  return dirs;
-}
 
 module.exports = function(grunt) {
 
@@ -44,24 +22,36 @@ module.exports = function(grunt) {
   // ==========================================================================
 
   grunt.registerMultiTask('dox', 'Generate dox output ', function() {
-    
-    var files = grunt.file.expandFiles(this.file.src),
-        dest = this.file.dest;
+
+    var dir = this.filesSrc,
+        dest = this.data.dest,
         done = this.async(),
-        doxPath = path.resolve(__dirname,'../');
-    
+        doxPath = path.resolve(__dirname,'../'),
+        _opts = this.options(),
+        _args = [];
+
     // Absolute path to the formatter
     var formatter = [doxPath, 'node_modules', '.bin', 'dox-foundation'].join(path.sep);
-    
-    var dir = parentDir(files);
 
     // Cleanup any existing docs
     rimraf.sync(dest);
 
-    exec(formatter + ' --source "' + dir + '" --target ' + dest, {maxBuffer: 5000*1024}, function(error, stout, sterr){
+    _args.push('--source');
+    _args.push(dir);
+    _args.push('--target');
+    _args.push(dest);
+
+    // Set options to arguments
+    if(_opts.title){
+      _args.push('--title');
+      _args.push(_opts.title);
+    }
+
+
+    exec(formatter + ' ' + _args.join(" "), {maxBuffer: 5000*1024}, function(error, stout, sterr){
       if (error) grunt.log.error("WARN:  "+ error);
       if (!error) {
-        grunt.log.writeln('Directory "' + dir + '" doxxed.');
+        grunt.log.ok('Directory "' + dir + '" doxxed.');
         done();
       }
     });

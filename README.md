@@ -19,13 +19,32 @@ Inside of your grunt file, add:
 ```javascript
 dox: {
   files: {
-    src: ['lib/**/*.js'],
+    src: ['js/lib/'],
     dest: 'docs'
   }
 },
 ```
 
-This will run all of your files through dox and dox-foundation and  put the output in `docs`
+This will run all of your files in `lib` through dox and dox-foundation and  put the output in `docs`.
+
+Since the `grunt-dox` task is a multi task, you can create several tasks for dox:
+
+```js
+dox: {
+  libdocs :{
+    files: {
+      src: ['js/lib/'],
+      dest: 'docs'
+    }
+  },
+  sourcedocs :{
+    files: {
+      src: ['js/src/'],
+      dest: 'docs'
+    }
+  }
+},
+```
 
 **Note:** This will completely delete and recreate the docs folder
 
