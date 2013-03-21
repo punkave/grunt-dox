@@ -3,21 +3,27 @@
 Dox grunt plugin to automatically generate documentation for you project. Currently generates HTML output using [dox-foundaiton](https://github.com/punkave/dox-foundation)
 
 ## Getting Started
-Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-dox`
+This plugin requires Grunt `~0.4.0`
 
-Then add this line to your project's `grunt.js` gruntfile:
+If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
-```javascript
-grunt.loadNpmTasks('grunt-dox');
+```shell
+npm install grunt-dox --save-dev
 ```
 
-[grunt]: https://github.com/cowboy/grunt
-[getting_started]: https://github.com/cowboy/grunt/blob/master/docs/getting_started.md
+Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
+
+```js
+grunt.loadNpmTasks('grunt-dox');
+```
 
 ## Documentation
 Inside of your grunt file, add:
 ```javascript
 dox: {
+  options: {
+    title: "My Library's awesome documentation"
+  },
   files: {
     src: ['js/lib/'],
     dest: 'docs'
@@ -52,9 +58,12 @@ dox: {
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][grunt].
 
 ## Release History
-* **0.1.0**: Initial release
-* **0.2.0**: Pass multiple files at once. Use dox-foundation for html output
+* **0.3.2** *2013-03-20*: 
+** Grunt v0.4 support
+** Ability to pass options.title to dox-foundation
 * **0.3.0**: Now relies solely on folder parsing done by dox-foundation v0.4
+* **0.2.0**: Pass multiple files at once. Use dox-foundation for html output
+* **0.1.0**: Initial release
 
 ## License
 Copyright (c) 2012 P'unk Ave
