@@ -1,8 +1,8 @@
 /*
  * grunt-dox
- * https://github.com/mattmcmanus/grunt-dox
+ * https://github.com/punkave/grunt-dox
  *
- * Copyright (c) 2012 Matt McManus
+ * Copyright (c) 2013 Matt McManus
  * Licensed under the MIT license.
  */
 
@@ -13,13 +13,6 @@ var exec = require('child_process').exec,
 
 
 module.exports = function(grunt) {
-
-  // Please see the grunt documentation for more information regarding task and
-  // helper creation: https://github.com/cowboy/grunt/blob/master/docs/toc.md
-
-  // ==========================================================================
-  // TASKS
-  // ==========================================================================
 
   grunt.registerMultiTask('dox', 'Generate dox output ', function() {
 
@@ -47,9 +40,8 @@ module.exports = function(grunt) {
       _args.push(_opts.title);
     }
 
-
     exec(formatter + ' ' + _args.join(" "), {maxBuffer: 5000*1024}, function(error, stout, sterr){
-      if (error) grunt.log.error("WARN:  "+ error);
+      if (error) { grunt.log.error("ERROR:  "+ error); }
       if (!error) {
         grunt.log.ok('Directory "' + dir + '" doxxed.');
         done();

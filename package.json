@@ -26,15 +26,18 @@
     "node": "*"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt nodeunit"
   },
   "dependencies": {
     "dox": "*",
-    "dox-foundation": "0.4.x",
+    "dox-foundation": "0.2.x",
     "rimraf": "2.x"
   },
   "devDependencies": {
-    "grunt": "~0.3.15"
+    "grunt": "~0.4.0",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-watch": "~0.2.0",
+    "grunt-contrib-nodeunit": "~0.1.2"
   },
   "keywords": [
     "gruntplugin"
