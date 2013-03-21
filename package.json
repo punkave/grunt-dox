@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "dox": "*",
-    "dox-foundation": "0.2.x",
+    "dox-foundation": "~0.4.7",
     "rimraf": "2.x"
   },
   "devDependencies": {
