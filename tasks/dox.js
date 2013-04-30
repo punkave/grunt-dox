@@ -40,6 +40,14 @@ module.exports = function(grunt) {
       _args.push('"' + _opts.title + '"');
     }
 
+    // Pass through ignore params if set
+    if (this.data.ignore) {
+      _args.push('--ignore');
+      this.data.ignore.forEach(function(ignorePath) {
+        _args.push(doxPath + ignorePath);
+      });
+      
+    }
 
     exec(formatter + ' ' + _args.join(" "), {maxBuffer: 5000*1024}, function(error, stout, sterr){
       if (error) { grunt.log.error("ERROR:  "+ error); }
