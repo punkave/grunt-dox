@@ -37,8 +37,9 @@ module.exports = function(grunt) {
     // Set options to arguments
     if(_opts.title){
       _args.push('--title');
-      _args.push(_opts.title);
+      _args.push('"' + _opts.title + '"');
     }
+
 
     exec(formatter + ' ' + _args.join(" "), {maxBuffer: 5000*1024}, function(error, stout, sterr){
       if (error) { grunt.log.error("ERROR:  "+ error); }
