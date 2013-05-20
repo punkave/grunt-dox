@@ -37,7 +37,16 @@ module.exports = function(grunt) {
     // Set options to arguments
     if(_opts.title){
       _args.push('--title');
-      _args.push(_opts.title);
+      _args.push('"' + _opts.title + '"');
+    }
+
+    // Pass through ignore params if set
+    if (this.data.ignore) {
+      _args.push('--ignore');
+      this.data.ignore.forEach(function(ignorePath) {
+        _args.push(doxPath + ignorePath);
+      });
+      
     }
 
     exec(formatter + ' ' + _args.join(" "), {maxBuffer: 5000*1024}, function(error, stout, sterr){
