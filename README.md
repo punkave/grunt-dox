@@ -52,6 +52,27 @@ dox: {
 },
 ```
 
+To ignore certain directories, or to override the default ignore list, simpy add ignore and an array of paths. Note that this is the same as passing the `--ignore` parameter as described on the [dox-foundation docs](https://github.com/punkave/dox-foundation/blob/master/README.md):
+
+```
+--ignore <directories>  Comma seperated list of directories to ignore. Overrides default of test, public, static, views, templates
+```
+
+Usage:
+
+```js
+dox: {
+  options: {
+    title: 'Ignore Nothing for my awesome documentation'
+  },
+  files: {
+    ignore: ['test'],
+    src: ['js/src/'],
+    dest: 'docs'
+  }
+}
+```
+
 **Note:** This will completely delete and recreate the docs folder
 
 ## Contributing
