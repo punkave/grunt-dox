@@ -40,6 +40,11 @@ module.exports = function(grunt) {
       _args.push('"' + _opts.title + '"');
     }
 
+    if (_opts.template) {
+      _args.push('--template');
+      _args.push('"' + _opts.template + '"');
+    }
+
     // Pass through ignore params if set
     if (this.data.ignore) {
       _args.push('--ignore');
