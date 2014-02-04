@@ -38,16 +38,12 @@ Since the `grunt-dox` task is a multi task, you can create several tasks for dox
 ```js
 dox: {
   libdocs :{
-    files: {
-      src: ['js/lib/'],
-      dest: 'docs'
-    }
+    src: ['js/lib/'],
+    dest: 'docs'
   },
   sourcedocs :{
-    files: {
-      src: ['js/src/'],
-      dest: 'docs'
-    }
+    src: ['js/src/'],
+    dest: 'docs'
   }
 },
 ```
