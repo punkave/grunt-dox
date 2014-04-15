@@ -24,7 +24,7 @@ module.exports = function(grunt) {
         _args = [];
 
     // Absolute path to the formatter
-    var formatter = [doxPath, 'node_modules', '.bin', 'dox-foundation'].join(path.sep);
+    var formatter = '"' + [doxPath, 'node_modules', '.bin', 'dox-foundation'].join(path.sep) + '"';
 
     // Cleanup any existing docs
     rimraf.sync(dest);
