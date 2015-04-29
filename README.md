@@ -2,6 +2,10 @@
 
 Dox grunt plugin to automatically generate documentation for you project. Currently generates HTML output using [dox-foundaiton](https://github.com/punkave/dox-foundation)
 
+# Maintainer Needed
+
+I haven't had a need to use this for a long time and things are piling up. If anyone wants to take it over. Let me know http://twitter.com/mattmcmanus
+
 ## Getting Started
 This plugin requires Grunt `~0.4.0`
 
