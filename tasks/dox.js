@@ -26,6 +26,12 @@ module.exports = function(grunt) {
     // Absolute path to the formatter
     var formatter = [doxPath, 'node_modules', '.bin', 'dox-foundation'].join(path.sep);
 
+    // fix for mac users. 
+    if(process.platform === 'darwin'){
+      formatter = 'dox-foundation';
+    }
+
+
     // Cleanup any existing docs
     rimraf.sync(dest);
 
